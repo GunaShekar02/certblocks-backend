@@ -1,0 +1,130 @@
+{
+  "$id": "assess/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "introduction": {
+      "type": "string"
+    },
+    "student": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"],
+      "additionalProperties": true
+    },
+    "content": {
+      "type": "string"
+    },
+    "ending": {
+      "type": "string"
+    },
+    "issuedOn": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresOn": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "issuers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "did": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "url"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "certificateStore": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "certificateStore"],
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "signature": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "position": { "type": "string" },
+        "image": { "type": "string" }
+      },
+      "required": ["name", "image"]
+    },
+    "$template": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Template name to be use by template renderer to determine the template to use"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of renderer template",
+          "enum": ["EMBEDDED_RENDERER"]
+        },
+        "url": {
+          "type": "string",
+          "description": "URL of a decentralised renderer to render this document"
+        }
+      },
+      "required": ["name", "type", "url"]
+    },
+    "additionalData": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "logo",
+    "heading",
+    "context",
+    "student",
+    "content",
+    "issuedOn",
+    "issuers"
+  ],
+  "additionalProperties": false
+}
