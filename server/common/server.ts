@@ -11,6 +11,17 @@ import installValidator from './openapi';
 const app = express();
 const exit = process.exit;
 
+declare global {
+  namespace Express {
+    interface Request {
+      file: {
+        originalname: string;
+        mimetype: string;
+      };
+    }
+  }
+}
+
 export default class ExpressServer {
   private routes: (app: Application) => void;
   constructor() {

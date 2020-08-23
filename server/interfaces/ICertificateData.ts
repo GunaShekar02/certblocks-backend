@@ -11,6 +11,7 @@ interface ICertificateData {
     phone?: string;
   };
   content: string;
+  cgpa: number;
   ending: string;
   issuedOn: Date;
   issuers: Array<{
