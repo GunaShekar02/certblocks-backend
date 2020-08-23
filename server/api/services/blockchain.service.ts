@@ -37,10 +37,11 @@ class BlockchainService {
   }
 
   async getCertificateByRoll(roll: string) {
-    const ipfsHash = await this.contract.methods
-      .getIPFSHashByRollNumber(roll)
-      .call();
-    return ipfsHash;
+    return await this.contract.methods.getIPFSHashByRollNumber(roll).call();
+  }
+
+  async verifyCertificate(document: string) {
+    return await this.contract.methods.isIssued(`0x${document}`).call();
   }
 
   async signAndSendTransaction(encodedData) {

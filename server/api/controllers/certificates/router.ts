@@ -2,6 +2,7 @@ import * as express from 'express';
 import multer from 'multer';
 
 import controller from './controller';
+import hasAPIKey from '../../middlewares/hasAPIKey';
 
 const fileFilter = (_, file, callback) => {
   if (!file.originalname.match(/\.(csv)$/))
@@ -25,6 +26,12 @@ const upload = multer({
 
 export default express
   .Router()
-  .post('/issue', controller.issue)
-  .post('/bulkissue', upload.single('studentList'), controller.bulkIssue)
+  .post('/issue', hasAPIKey, controller.issue)
+  .post(
+    '/bulkissue',
+    hasAPIKey,
+    upload.single('studentList'),
+    controller.bulkIssue
+  )
+  .post('/verify', controller.verifyCertificate)
   .get('/:id', controller.fetchCertificate);

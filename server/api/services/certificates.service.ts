@@ -62,6 +62,14 @@ class CertificatesService {
 
     return certificate;
   }
+
+  async validateCertificate(certificateData: ICertificateData) {
+    if (!OpenCert.validateSchema(certificateData, degreeSchema))
+      throw { message: 'Invalid Schema', status: 400 };
+
+    if (!OpenCert.verifySignature(certificateData))
+      throw { message: 'Invalid Signature', status: 400 };
+  }
 }
 
 export default new CertificatesService();

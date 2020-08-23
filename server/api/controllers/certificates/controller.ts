@@ -54,6 +54,18 @@ export class Controller {
       next(err);
     }
   }
+
+  async verifyCertificate(req: Request, res: Response, next: NextFunction) {
+    try {
+      await CertificatesService.validateCertificate(req.body.certificateData);
+      const onBlockchain = await BlockchainService.verifyCertificate(
+        req.body.certificateData.signature.targetHash
+      );
+      res.status(200).json({ message: 'Successful', onBlockchain });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default new Controller();
