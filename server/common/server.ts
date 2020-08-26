@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import os from 'os';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import l from './logger';
 
 import installValidator from './openapi';
@@ -37,6 +38,7 @@ export default class ExpressServer {
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(express.static(`${root}/public`));
+    app.use(cors());
   }
 
   router(routes: (app: Application) => void): ExpressServer {
